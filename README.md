@@ -1,2 +1,2 @@
-# wendychen0.github.io
+# Wendy Chen
 My personal website

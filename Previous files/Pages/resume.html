@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Wendy's Website</title>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.2/css/bulma.min.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    </head>
+
+    <style>
+        #button {
+            padding: 10px 20px;
+            font-size: 20px;
+            text-align: center;
+            background-color: lightskyblue;
+            border-radius: 5px;
+            box-shadow: 7px 7px darkgrey;
+        }
+        #button:active {
+            box-shadow: 3px 3px dimgrey;
+            transform: translateY(4px);
+        }
+        #button span {
+            display: inline-block;
+            position: relative;
+            transition: .5s;
+        }
+        #button span::after {
+            content: '\2b73';
+            position: absolute;
+            opacity: 0;
+            top: 0;
+            right: -20px;
+            transition: .5s;
+        }
+        #button:hover span {
+            padding-right: 20px;
+        }
+        #button:hover span:after {
+            opacity: 1;
+            right: 0;
+        }
+        .icons-bar {
+            display: flex;
+            position: absolute;
+            right: 30px;
+            top: 25px;
+        }
+        .icons-bar ul {
+            list-style: none;
+            display: inline-flex;
+        }
+        .icons-bar li{
+            padding-left: 30px;
+        }
+        .icons-bar a {
+            color: lightblue;
+        }
+    </style>
+
+    <body>
+        <div class="heading">
+            <h1 style = "font-size: 300%; color:lightblue">Wendy Chen</h1>
+        </div>
+        <ul>
+            <li>
+                <a href="https://www.linkedin.com/in/wendy-chenn/" target="_blank"class="fa fa-linkedin fa-2x"></a>
+            </li>
+            <!-- <li> -->
+                <!-- <a href="https://www.instagram.com/wendyyy.chen" target="_blank"class= "fa fa-instagram fa-2x"></a> -->
+            <!-- </li> -->
+        </ul>
+        <hr>
+        <div class="navigation">
+            <nav>
+                <a href="./index.html">About Me</a>
+                <a href="./projects.html">Projects</a>
+                <a href="./resume.html">Resume</a>
+            </nav>
+        </div>
+        <hr>
+        <div class="subheading">
+            <h3><u>Resume</u></h3>
+        </div>
+        <br>
+        <div id="activities" class="content">
+            <h3>Activities</h3>
+            <dl>
+                <dt>Table tennis</dt>
+                    <dd> -Been playing for 8 years</dd>
+                    <dd> -Won a couple national events</dd>
+                    <br>
+                <dt>Track and Field</dt>
+                    <dd> -Ran the 100 and 200</dd>
+            </dl>
+        </div>
+        <div id="download link" class="content">
+            <a href="https://drive.google.com/file/d/1uF0r7HqTP4WuZZFXaf6XFFYZpRYym7HZ/view?usp=sharing" target="_blank">
+                <button id="button" onmouseover="downloadMouseOver()" onmouseout="downloadMouseOut()" onclick="downloadClick()">
+                    <span id = "buttonText">View Resume</span>
+                </button>
+            </a>
+        </div>
+        
+    </body>
+
+    <script>
+        var id = null;
+        //use clicked = 0 to indicate false, clicked = 1 to indicate true
+        var clicked = null;
+
+        var button = document.getElementById("button");
+        var downloadText = document.getElementById("buttonText");
+        
+
+        function downloadMouseOut() {
+            //if they mouse off and the button has not been clicked, restore bkgrd color
+            if(clicked == null) {
+                button.style.backgroundColor = 'LightSkyBlue';
+            }
+        }
+        function downloadMouseOver() {
+            //if button has not already been clicked, darken bkgrd color
+            if(clicked == null) {
+                button.style.backgroundColor = 'DodgerBlue';
+                
+            }
+        }
+        function downloadClick() {
+            //clicked = 1;
+            //button.style.backgroundColor = 'MediumViolet';
+            //var id = null;
+
+            downloadText.style.transform = "translateY(5px)";
+
+            //keep track of the position of the text
+            var pos = 5;
+            //when dir = null, the text is moving down, flag will flip to 1 when text
+            //bounces back up
+            var dir = null;
+
+            clearInterval(id);
+
+            //run the bouncingText function every 5 ms
+            id = setInterval(bouncingText, 5);
+
+            function bouncingText(){
+                if(dir == null) {
+                    pos++;
+                    downloadText.style.transform = "translateY("+pos+"px)";
+                    if(pos == 50) {
+                        dir = 1;
+                    }
+                } else if(dir == 1) {
+                    pos--;
+                    downloadText.style.transform = "translateY("+pos+"px)";
+                    if(pos == 0) {
+                        downloadText.style.top = "0px";
+                        clearInterval(id);
+                        button.style.backgroundColor = 'lightpurple';
+                        clicked = 1;
+                    }
+                }
+            }
+        }
+    </script>
+</html>
